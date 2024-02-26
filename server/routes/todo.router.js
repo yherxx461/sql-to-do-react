@@ -12,11 +12,25 @@ router.get('/', (req, res) => {
       res.send(result.rows);
     })
     .catch((error) => {
-      console.log('ERROR in getting the "todo" list from the database', error);
+      console.log('Error in getting the "todo" list from the database', error);
       res.sendStatus(500);
     });
 });
 // POST
+router.post('/', (req, res) => {
+  const dbQuery = `INSERT INTO "todo" ("task", "completed") VALUES ($1, $2);`;
+  const newTask = req.body;
+  const queryArgs = [newTask.task, newTask.completed];
+  pool
+    .query(dbQuery, queryArgs)
+    .then((result) => {
+      res.sendStatus(200);
+    })
+    .catch((error) => {
+      console.log('Error in posting new task', error);
+      res.sendStatus(500);
+    });
+});
 
 // PUT
 
