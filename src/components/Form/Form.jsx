@@ -2,13 +2,13 @@ import { useState } from 'react';
 
 function Form() {
   const [newTask, setNewTask] = useState('');
-  const [completed, setCompleted] = useState('');
+  // const [completed, setCompleted] = useState('');
 
   const handleNewTask = (event) => {
     event.preventDefault();
     console.log('In handleNewTask', {
       task: newTask,
-      completed,
+      // completed,
     });
   };
 
@@ -22,7 +22,8 @@ function Form() {
         type="text"
         className="new-task"
         placeholder="new task"
-        // onChange={handleOnChange}
+        onChange={(event) => setNewTask(event.target.value)}
+        value={newTask}
       ></input>
       <button type="submit">Add</button>
     </form>
