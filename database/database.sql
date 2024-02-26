@@ -1,16 +1,16 @@
-CREATE TABLE "to-do" (
+CREATE TABLE "todo" (
   "id" SERIAL PRIMARY KEY,
   "task" VARCHAR(120) NOT NULL,
   "completed" BOOLEAN DEFAULT FALSE
 );
 
-INSERT INTO "to-do" ("task")
+INSERT INTO "todo" ("task")
 VALUES ('Make breakfast'),
 	('Group work'),
 	('Grocery Shopping'),
 	('Do laundry'
 );
 
-SELECT * FROM "to-do";
+SELECT * FROM "todo";
 
-DROP TABLE "to-do";
+DROP TABLE "todo";
