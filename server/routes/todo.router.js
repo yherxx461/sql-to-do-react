@@ -36,7 +36,7 @@ router.post('/', (req, res) => {
 
 // PUT
 router.put('/:id', (req, res) => {
-  const id = req.params.id;
+  const id = parseInt(req.params.id);
   const dbQuery = `UPDATE "todo" SET "completed" = NOT "completed" WHERE "id" = $1;`;
 
   pool
@@ -50,6 +50,22 @@ router.put('/:id', (req, res) => {
       res.sendStatus(500);
     });
 });
+
 // DELETE
+router.delete('/:id', (req, res) => {
+  const id = parseInt(req.params.id);
+  const dbQuery = `DELETE FROM "todo" WHERE "id" = $1;`;
+
+  pool
+    .query(dbQuery, [id])
+    .then((result) => {
+      console.log('Success in deleting task');
+      res.sendStatus(200);
+    })
+    .catch((error) => {
+      console.log('Error in deleting task', error);
+      res.sendStatus(500);
+    });
+});
 
 module.exports = router;
