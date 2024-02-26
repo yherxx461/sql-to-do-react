@@ -16,11 +16,13 @@ router.get('/', (req, res) => {
       res.sendStatus(500);
     });
 });
+
 // POST
 router.post('/', (req, res) => {
   const dbQuery = `INSERT INTO "todo" ("task", "completed") VALUES ($1, $2);`;
   const newTask = req.body;
   const queryArgs = [newTask.task, newTask.completed];
+
   pool
     .query(dbQuery, queryArgs)
     .then((result) => {
@@ -33,7 +35,21 @@ router.post('/', (req, res) => {
 });
 
 // PUT
+router.put('/:id', (req, res) => {
+  const id = req.params.id;
+  const dbQuery = `UPDATE "todo" SET "completed" = NOT "completed" WHERE "id" = $1;`;
 
+  pool
+    .query(dbQuery, [id])
+    .then((response) => {
+      console.log('Success in updating task completion');
+      res.sendStatus(200);
+    })
+    .catch((error) => {
+      console.log('Error in updating task completion', error);
+      res.sendStatus(500);
+    });
+});
 // DELETE
 
 module.exports = router;
