@@ -11,6 +11,6 @@ VALUES ('Make breakfast'),
 	('Do laundry'
 );
 
-SELECT * FROM "todo";
+SELECT * FROM "to-do";
 
-DROP TABLE "todo";
+DROP TABLE "to-do";
