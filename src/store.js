@@ -6,7 +6,8 @@ import axios from 'axios';
 
 // Create the rootSaga generator function
 function* rootSaga() {
-  yield takeEvery('FETCH_TASKS', fetchAllTasks);
+  yield takeEvery('FETCH_ALL_TASKS', fetchAllTasks);
+  yield takeEvery('ADD_NEW_TASK', newTask);
   // yield takeEvery('');
 }
 
@@ -21,6 +22,18 @@ function* fetchAllTasks() {
     });
   } catch (error) {
     console.log('fetchAllTasks error:', error);
+  }
+}
+
+function* newTask(action) {
+  try {
+    // Add new task
+    yield axios.put('/api/todo');
+    yield put({
+      type: 'FETCH_TASKS',
+    });
+  } catch (error) {
+    console.log('Error in adding new task:', error);
   }
 }
 
