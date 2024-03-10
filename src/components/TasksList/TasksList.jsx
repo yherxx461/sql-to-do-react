@@ -7,7 +7,7 @@ function TasksList() {
 
   useEffect(() => {
     dispatch({
-      type: 'FETCH_TASKS',
+      type: 'FETCH_ALL_TASKS',
     });
   }, []);
 
@@ -16,7 +16,8 @@ function TasksList() {
       <section className="tasks">
         {tasks.map((task, index) => (
           <div data-testid="tasksList" key={task.id}>
-            <h3>{task.name}</h3>
+            <p>{task.task}</p>
+            <p>{task.completed}</p>
           </div>
         ))}
       </section>

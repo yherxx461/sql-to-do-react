@@ -19,7 +19,7 @@ router.get('/', (req, res) => {
 
 // POST
 router.post('/', (req, res) => {
-  const dbQuery = `INSERT INTO "todo" ("task", "completed") VALUES ($1, $2);`;
+  const dbQuery = `INSERT INTO "todo" ("task", "completed") VALUES ($1, $2) RETURNING "id";`;
   const newTask = req.body;
   const queryArgs = [newTask.task, newTask.completed];
 

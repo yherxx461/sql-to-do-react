@@ -7,7 +7,7 @@ import axios from 'axios';
 // Create the rootSaga generator function
 function* rootSaga() {
   yield takeEvery('FETCH_ALL_TASKS', fetchAllTasks);
-  yield takeEvery('ADD_NEW_TASK', newTask);
+  yield takeEvery('FETCH_NEW_TASK', newTask);
   // yield takeEvery('');
 }
 
@@ -28,9 +28,9 @@ function* fetchAllTasks() {
 function* newTask(action) {
   try {
     // Add new task
-    yield axios.put('/api/todo');
+    yield axios.get(`/api/todo`, action.payload);
     yield put({
-      type: 'FETCH_TASKS',
+      type: 'SET_NEW_TASK',
     });
   } catch (error) {
     console.log('Error in adding new task:', error);

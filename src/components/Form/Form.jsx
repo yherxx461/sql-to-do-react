@@ -2,13 +2,13 @@ import { useState } from 'react';
 
 function Form() {
   const [newTask, setNewTask] = useState('');
-  // const [completed, setCompleted] = useState('');
+  const [completed, setCompleted] = useState(false);
 
   const handleNewTask = (event) => {
     event.preventDefault();
     console.log('In handleNewTask', {
       task: newTask,
-      // completed,
+      completed,
     });
   };
 
