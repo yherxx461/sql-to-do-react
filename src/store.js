@@ -7,7 +7,7 @@ import axios from 'axios';
 // Create the rootSaga generator function
 function* rootSaga() {
   yield takeEvery('FETCH_ALL_TASKS', fetchAllTasks);
-  yield takeEvery('FETCH_NEW_TASK', newTask);
+  yield takeEvery('ADD_NEW_TASK', addTask);
   // yield takeEvery('');
 }
 
@@ -25,12 +25,12 @@ function* fetchAllTasks() {
   }
 }
 
-function* newTask(action) {
+function* addTask(action) {
   try {
     // Add new task
-    yield axios.get(`/api/todo`, action.payload);
+    yield axios.post('/api/todo', action.payload);
     yield put({
-      type: 'SET_NEW_TASK',
+      type: 'FETCH_ALL_TASKS',
     });
   } catch (error) {
     console.log('Error in adding new task:', error);
@@ -49,6 +49,10 @@ const tasks = (state = [], action) => {
       return state;
   }
 };
+
+// PUT
+
+// DELETE
 
 // Create one store that all components can be use
 const storeInstance = createStore(

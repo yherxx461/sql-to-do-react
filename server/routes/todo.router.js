@@ -17,11 +17,27 @@ router.get('/', (req, res) => {
     });
 });
 
+router.get('/:id', (req, res) => {
+  const dbQuery = `SELECT * FROM "todo" WHERE "id" = $1;`;
+  pool
+    .query(dbQuery, [req.params.id])
+    .then((result) => {
+      res.send(result.rows[0]);
+    })
+    .catch((error) => {
+      console.log(
+        'Error in getting the new added "todo" list from the database',
+        error
+      );
+      res.sendStatus(500);
+    });
+});
+
 // POST
 router.post('/', (req, res) => {
-  const dbQuery = `INSERT INTO "todo" ("task", "completed") VALUES ($1, $2) RETURNING "id";`;
-  const newTask = req.body;
-  const queryArgs = [newTask.task, newTask.completed];
+  const dbQuery = `INSERT INTO "todo" ("task", "completed") VALUES ($1, $2)`;
+  const task = req.body;
+  const queryArgs = [task.task, task.completed];
 
   pool
     .query(dbQuery, queryArgs)
