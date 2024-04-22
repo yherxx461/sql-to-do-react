@@ -52,11 +52,13 @@ router.post('/', (req, res) => {
 
 // PUT
 router.put('/:id', (req, res) => {
-  const id = parseInt(req.params.id);
-  const dbQuery = `UPDATE "todo" SET "completed" = NOT "completed" WHERE "id" = $1;`;
+  const { id } = parseInt(req.params);
+  const { task, completed } = req.body;
+  console.log(req.body);
+  const dbQuery = `UPDATE "todo" SET "task" = $2, "completed" = NOT "completed" WHERE "id" = $1;`;
 
   pool
-    .query(dbQuery, [id])
+    .query(dbQuery, [id, task, completed])
     .then((response) => {
       console.log('Success in updating task completion');
       res.sendStatus(200);
@@ -69,13 +71,14 @@ router.put('/:id', (req, res) => {
 
 // DELETE
 router.delete('/:id', (req, res) => {
-  const id = parseInt(req.params.id);
+  const { id } = req.params;
+  console.log(req.body);
   const dbQuery = `DELETE FROM "todo" WHERE "id" = $1;`;
 
   pool
     .query(dbQuery, [id])
     .then((result) => {
-      console.log('Success in deleting task');
+      console.log('Success in deleting task', result);
       res.sendStatus(200);
     })
     .catch((error) => {
