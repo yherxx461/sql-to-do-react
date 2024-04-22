@@ -8,6 +8,8 @@ import axios from 'axios';
 function* rootSaga() {
   yield takeEvery('FETCH_ALL_TASKS', fetchAllTasks);
   yield takeEvery('ADD_NEW_TASK', addTask);
+  yield takeEvery('UPDATE_STATUS', updateTaskComplete);
+  yield takeEvery('DELETE_TASK', deleteTask);
   // yield takeEvery('');
 }
 
@@ -37,6 +39,33 @@ function* addTask(action) {
   }
 }
 
+// PUT
+function* updateTaskComplete(action) {
+  try {
+    console.log('UPDATE_STATUS PAYLOAD:', action.payload);
+    // Add new task
+    yield axios.put(`/api/todo/${action.payload.id}`, action.payload);
+    yield put({
+      type: 'FETCH_ALL_TASKS',
+    });
+  } catch (error) {
+    console.log('Error in updating task status:', error);
+  }
+}
+// DELETE
+function* deleteTask(action) {
+  try {
+    console.log('DELETE_TASK PAYLOAD:', action.payload);
+    // Delete a task
+    yield axios.delete(`/api/todo/${action.payload.id}`);
+    yield put({
+      type: 'FETCH_ALL_TASKS',
+    });
+  } catch (error) {
+    console.log('Error in deleting task:', error);
+  }
+}
+
 // Create sagaMiddleWare
 const sagaMiddleware = createSagaMiddleware();
 
@@ -49,10 +78,6 @@ const tasks = (state = [], action) => {
       return state;
   }
 };
-
-// PUT
-
-// DELETE
 
 // Create one store that all components can be use
 const storeInstance = createStore(
