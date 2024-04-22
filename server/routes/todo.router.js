@@ -52,10 +52,13 @@ router.post('/', (req, res) => {
 
 // PUT
 router.put('/:id', (req, res) => {
-  const { id } = parseInt(req.params);
+  const { id } = req.params;
   const { task, completed } = req.body;
-  console.log(req.body);
-  const dbQuery = `UPDATE "todo" SET "task" = $2, "completed" = NOT "completed" WHERE "id" = $1;`;
+  console.log('Received ID:', id);
+  console.log('Received Task:', task);
+  console.log('Received Status:', completed);
+
+  const dbQuery = `UPDATE "todo" SET "task" = $2, "completed" = $3 WHERE "id" = $1;`;
 
   pool
     .query(dbQuery, [id, task, completed])
