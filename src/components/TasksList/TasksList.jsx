@@ -49,8 +49,8 @@ function TasksList() {
                 fontFamily: 'monospace',
               }}
             >
-              <p>{task.task}</p>
-              <p>{task.completed ? 'Completed' : 'Incomplete'}</p>
+              <p>Task: {task.task}</p>
+              <p>Status: {task.completed ? 'Completed' : 'Incomplete'}</p>
               <IconButton>
                 <DeleteRoundedIcon
                   style={{ color: 'red' }}
