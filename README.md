@@ -29,7 +29,7 @@ The purpose of this application is to help an individual track and monitor the p
 1. Open the application in the browser.
 2. To add a new task, type a task into the text field provided and click "Add".
 3. If the added task is incorrect, click on the "trash can" to remove the incorrect task.
-4. Mark tasks as completed by clicking on the "√".
+4. Mark tasks as completed by clicking on the "checkmark (✓)" symbol.
 
 ## Built With
 
@@ -43,8 +43,8 @@ The purpose of this application is to help an individual track and monitor the p
 
 ## Acknowledgment
 
-Thanks to [Prime Digital Academy](www.primeacademy.io) who equipped and helped me to make this application a reality. (Thank your people)
+Thanks to [Prime Digital Academy](www.primeacademy.io) who equipped and helped me to make this application a reality.
 
 ## Support
 
-If you have suggestions or issues, please email me at [yher.prime@gmail.com].
+If you have suggestions or issues, please email me at yher.prime@gmail.com.
