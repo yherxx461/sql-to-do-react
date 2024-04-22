@@ -43,10 +43,12 @@ function* addTask(action) {
 function* updateTaskComplete(action) {
   try {
     console.log('UPDATE_STATUS PAYLOAD:', action.payload);
-    // Add new task
-    yield axios.put(`/api/todo/${action.payload.id}`, action.payload);
+    const { id, task, completed } = action.payload;
+    // Update Status
+    yield axios.put(`/api/todo/${action.payload.id}`, { task, completed });
     yield put({
-      type: 'FETCH_ALL_TASKS',
+      type: 'UPDATE_TASK_STATUS',
+      payload: { id, task, completed },
     });
   } catch (error) {
     console.log('Error in updating task status:', error);
@@ -74,6 +76,14 @@ const tasks = (state = [], action) => {
   switch (action.type) {
     case 'SET_TASKS':
       return action.payload;
+    case 'UPDATE_TASK_STATUS':
+      return state.map((task) =>
+        task.id === action.payload.id
+          ? { ...task, completed: action.payload.completed }
+          : task
+      );
+    case 'DELETE_TASK':
+      return state.filter((task) => task.id !== action.payload.id);
     default:
       return state;
   }
