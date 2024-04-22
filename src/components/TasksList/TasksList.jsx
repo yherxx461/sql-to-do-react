@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 // const [taskToggled, setTaskToggled] = useState(false);
@@ -6,9 +6,6 @@ import { useDispatch, useSelector } from 'react-redux';
 function TasksList() {
   const dispatch = useDispatch();
   const tasks = useSelector((store) => store.tasks);
-  const deleteTask = useSelector((store) => store.deleteTask);
-  const [task, setTask] = useState(tasks.task);
-  const [completed, setCompleted] = useState(tasks.completed);
 
   useEffect(() => {
     dispatch({
@@ -16,12 +13,15 @@ function TasksList() {
     });
   }, [dispatch]);
 
-  // const handleClickToggle = (taskData) => {
-  //   const toggleTask = (taskData) => {
-  //     console.log('in handleClickToggle() - taskData:', taskToggled);
-  //     setTask;
-  //   };
-  // };
+  const handleStatusUpdate = (taskId, task, completed) => {
+    // Toggle task completion status
+    const toggleTaskCompletion = !completed;
+    // Dispatch action to update task status
+    dispatch({
+      type: 'UPDATE_STATUS',
+      payload: { id: taskId, task, completed: toggleTaskCompletion },
+    });
+  };
 
   const handleDelete = (taskId) => {
     // console.log('in handleDelete');
@@ -37,13 +37,22 @@ function TasksList() {
         {tasks.map((task) => (
           <div className="tasksList" key={task.id}>
             <p>{task.task}</p>
-            <p>{task.completed}</p>
+            <p>{task.completed ? 'Completed' : 'Incomplete'}</p>
             <button
               type="button"
               className="deleteTask"
               onClick={() => handleDelete(task.id)}
             >
               Delete
+            </button>
+            <button
+              type="button"
+              className="updateStatus"
+              onClick={() =>
+                handleStatusUpdate(task.id, task.task, task.completed)
+              }
+            >
+              {task.completed ? 'Incomplete' : 'Complete'}
             </button>
           </div>
         ))}
