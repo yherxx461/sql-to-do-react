@@ -1,7 +1,11 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-// const [taskToggled, setTaskToggled] = useState(false);
+//Material UI
+import { IconButton, Card, Grid } from '@mui/material';
+import DoneIcon from '@mui/icons-material/Done';
+import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
+import './TasksList.css';
 
 function TasksList() {
   const dispatch = useDispatch();
@@ -36,24 +40,40 @@ function TasksList() {
       <section className="tasks">
         {tasks.map((task) => (
           <div className="tasksList" key={task.id}>
-            <p>{task.task}</p>
-            <p>{task.completed ? 'Completed' : 'Incomplete'}</p>
-            <button
-              type="button"
-              className="deleteTask"
-              onClick={() => handleDelete(task.id)}
+            <Card
+              className="card"
+              sx={{ maxWidth: 215 }}
+              style={{
+                flexDirection: 'column',
+                backgroundColor: 'whitesmoke',
+                fontFamily: 'monospace',
+              }}
             >
-              Delete
-            </button>
-            <button
-              type="button"
-              className="updateStatus"
-              onClick={() =>
-                handleStatusUpdate(task.id, task.task, task.completed)
-              }
-            >
-              {task.completed ? 'Incomplete' : 'Complete'}
-            </button>
+              <p>{task.task}</p>
+              <p>{task.completed ? 'Completed' : 'Incomplete'}</p>
+              <IconButton>
+                <DeleteRoundedIcon
+                  style={{ color: 'red' }}
+                  type="button"
+                  className="deleteTask"
+                  onClick={() => handleDelete(task.id)}
+                >
+                  Delete
+                </DeleteRoundedIcon>
+              </IconButton>
+              <IconButton>
+                <DoneIcon
+                  style={{ color: 'green' }}
+                  type="button"
+                  className="updateStatus"
+                  onClick={() =>
+                    handleStatusUpdate(task.id, task.task, task.completed)
+                  }
+                >
+                  {task.completed ? 'Incomplete' : 'Complete'}
+                </DoneIcon>
+              </IconButton>
+            </Card>
           </div>
         ))}
       </section>

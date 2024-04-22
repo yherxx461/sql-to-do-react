@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import { Button, TextField } from '@mui/material';
 
 function Form() {
   const [newTask, setNewTask] = useState({
@@ -40,14 +41,28 @@ function Form() {
 
   return (
     <form onSubmit={handleSubmit} className="task-form">
-      <input
+      <TextField
+        style={{ margin: '2px' }}
+        size="small"
         type="text"
         className="new-task"
         placeholder="new task"
         onChange={handleChange}
         value={newTask.task}
-      ></input>
-      <button type="submit">Add</button>
+      ></TextField>
+      <Button
+        variant="contained"
+        style={{
+          margin: '2px',
+          marginLeft: '10px',
+          backgroundColor: 'gray',
+          color: 'white',
+        }}
+        size="medium"
+        type="submit"
+      >
+        Add
+      </Button>
     </form>
   );
 }
