@@ -29,7 +29,7 @@ function Form() {
   };
 
   const handleChange = (event) => {
-    console.log('In handleChange');
+    console.log('In handleChange', newTask.task);
 
     // dispatch({
     //   type: 'SET_NEW_TASK',
