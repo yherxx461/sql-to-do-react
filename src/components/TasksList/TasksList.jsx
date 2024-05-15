@@ -63,7 +63,7 @@ function TasksList() {
               </IconButton>
               <IconButton>
                 <DoneIcon
-                  style={{ color: 'green' }}
+                  style={{ color: task.completed ? 'green' : 'red' }}
                   type="button"
                   className="updateStatus"
                   onClick={() =>
